@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency SOS - Rakshak</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Rakshak</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="awareness.html">Safety Tips</a></li>
+                <li><a href="sos.html" class="active">SOS</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="login.html" class="login-btn">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SOS Page Content -->
+    <div class="sos-container">
+        <h1 class="sos-title">Emergency SOS</h1>
+        <p class="sos-subtitle">Choose the appropriate emergency response option</p>
+
+        <!-- SOS Buttons -->
+        <div class="sos-buttons">
+            <button id="emergencySOS" class="sos-main-button">
+                <i class="fas fa-bell"></i>
+                <span>EMERGENCY SOS</span>
+                <small>Loud alarm & location shared</small>
+            </button>
+
+            <button id="silentSOS" class="silent-sos-button">
+                <i class="fas fa-user-secret"></i>
+                <span>SILENT SOS MODE</span>
+                <small>Discreet alert without sound</small>
+            </button>
+        </div>
+
+        <!-- SOS Instructions -->
+        <div class="sos-instructions">
+            <h3><i class="fas fa-info-circle"></i> How SOS Works</h3>
+            <ul>
+                <li><strong>Emergency SOS:</strong> Triggers loud alarm, shares your location with emergency contacts, and highlights emergency numbers</li>
+                <li><strong>Silent SOS Mode:</strong> Discreetly copies your location to clipboard without any sound or visible alerts</li>
+                <li>Your current location will be automatically detected and shared</li>
+                <li>Emergency contacts will receive your location and a distress message</li>
+            </ul>
+        </div>
+
+        <!-- Location Display -->
+        <div id="locationDisplay" class="alert alert-warning" style="display: none;">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+                <h4>Your Location</h4>
+                <p id="locationText">Fetching your location...</p>
+                <button id="copyLocation" class="btn btn-success" style="margin-top: 10px;">
+                    <i class="fas fa-copy"></i> Copy Location
+                </button>
+            </div>
+        </div>
+
+        <!-- Emergency Numbers -->
+        <h3 style="text-align: center; margin-top: 2rem; color: var(--dark-red);">
+            <i class="fas fa-phone-alt"></i> Emergency Contacts
+        </h3>
+        <div class="emergency-numbers">
+            <div class="emergency-number">
+                <h4>Police</h4>
+                <p>100</p>
+                <p class="helpline-desc">Emergency police response</p>
+            </div>
+            <div class="emergency-number">
+                <h4>Women Helpline</h4>
+                <p>1091</p>
+                <p class="helpline-desc">National women helpline</p>
+            </div>
+            <div class="emergency-number">
+                <h4>Ambulance</h4>
+                <p>102</p>
+                <p class="helpline-desc">Medical emergency</p>
+            </div>
+            <div class="emergency-number">
+                <h4>Disaster Management</h4>
+                <p>108</p>
+                <p class="helpline-desc">Multi-purpose emergency</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-shield-alt"></i>
+                <h2>Rakshak</h2>
+                <p>Women Safety Companion</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="awareness.html">Safety Tips</a>
+                <a href="sos.html">SOS</a>
+                <a href="resources.html">Resources</a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
+            <div class="copyright">
+                <p>Made with ❤️ by Sudhanshu Gupta</p>
+                <p class="copyright-text">© 2026 Rakshak. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/sos.js"></script>
+    <script src="js/location.js"></script>
+    <script src="js/helpers.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

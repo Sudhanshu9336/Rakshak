@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakshak - Women Safety Companion</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Rakshak</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="awareness.html">Safety Tips</a></li>
+                <li><a href="sos.html">SOS</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="login.html" class="login-btn">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Your Safety Companion</h2>
+            <h1>Before, During & After an Incident</h1>
+            <p>Rakshak is different because it focuses on safety before, during, and after an incident, not just emergency response.</p>
+            <div class="hero-buttons">
+                <a href="sos.html" class="btn btn-danger">
+                    <i class="fas fa-bell"></i> Emergency SOS
+                </a>
+                <a href="awareness.html" class="btn btn-success">
+                    <i class="fas fa-clipboard-check"></i> Safety Check
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Safety Companion">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">How Rakshak Protects You</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon green">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>Pre-Journey Safety Check</h3>
+                <p>Analyze your route and time before you travel. Get personalized safety recommendations.</p>
+                <a href="awareness.html">Try Now →</a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon red">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Silent SOS Mode</h3>
+                <p>Discreet emergency alert without sound or visible alerts. Location auto-copied to clipboard.</p>
+                <a href="sos.html">Learn More →</a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card orange">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>After-Incident Help</h3>
+                <p>Step-by-step guidance on what to do after an incident with direct helpline connections.</p>
+                <a href="resources.html">Explore →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Pre-Journey Check</h3>
+                <p>Select time and location type. Get safety checklist before you travel.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>During Travel</h3>
+                <p>Use SOS or Silent SOS in emergencies. Your location is shared automatically.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>After Incident</h3>
+                <p>Follow the checklist for immediate steps and connect with support resources.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-shield-alt"></i>
+                <h2>Rakshak</h2>
+                <p>Women Safety Companion</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="awareness.html">Safety Tips</a>
+                <a href="sos.html">SOS</a>
+                <a href="resources.html">Resources</a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
+            <div class="copyright">
+                <p>Made with ❤️ by Sudhanshu Gupta</p>
+                <p class="copyright-text">© 2026 Rakshak. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/helpers.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

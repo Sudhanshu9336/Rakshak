@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Awareness - Rakshak</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Rakshak</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="awareness.html" class="active">Safety Tips</a></li>
+                <li><a href="sos.html">SOS</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="login.html" class="login-btn">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Awareness Page Content -->
+    <div class="awareness-container">
+        <h1 class="awareness-title">Safety Awareness</h1>
+        <p class="awareness-subtitle">Stay safe with pre-journey checks and safety tips</p>
+
+        <!-- Pre-Journey Safety Check -->
+        <div class="safety-check">
+            <h2><i class="fas fa-clipboard-check"></i> Pre-Journey Safety Check</h2>
+            <p>Complete this quick assessment before you travel to get personalized safety recommendations.</p>
+            
+            <div class="form-group">
+                <label for="timeOfDay">What time are you traveling?</label>
+                <select id="timeOfDay" class="form-select">
+                    <option value="">Select time of day</option>
+                    <option value="day">Daytime (6 AM - 6 PM)</option>
+                    <option value="evening">Evening (6 PM - 10 PM)</option>
+                    <option value="night">Night (10 PM - 6 AM)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="areaType">What type of area are you traveling to?</label>
+                <select id="areaType" class="form-select">
+                    <option value="">Select area type</option>
+                    <option value="known">Known/Familiar Area</option>
+                    <option value="unknown">Unknown/New Area</option>
+                </select>
+            </div>
+            
+            <button id="checkSafetyBtn" class="btn btn-success check-safety-btn">
+                <i class="fas fa-search"></i> Check Safety
+            </button>
+            
+            <!-- Results will appear here -->
+            <div id="checklistResults" class="checklist-results">
+                <h3><i class="fas fa-list-check"></i> Your Safety Checklist</h3>
+                <div id="safetyChecklist"></div>
+            </div>
+        </div>
+
+        <!-- Safety Tips -->
+        <div class="safety-tips">
+            <h2><i class="fas fa-lightbulb"></i> General Safety Tips</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4><i class="fas fa-map"></i> Plan Your Route</h4>
+                    <p>Always plan your route in advance and share it with a trusted contact. Avoid shortcuts through isolated areas.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-mobile-alt"></i> Keep Phone Charged</h4>
+                    <p>Ensure your phone is fully charged before leaving. Carry a power bank for longer journeys.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-user-friends"></i> Stay in Public View</h4>
+                    <p>Walk in well-lit, populated areas. Avoid wearing headphones at high volume in unfamiliar areas.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-car"></i> Transportation Safety</h4>
+                    <p>Verify cab details before boarding. Share ride details with someone. Sit in the back seat.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-money-bill-wave"></i> Carry Essentials</h4>
+                    <p>Carry some cash, ID, and emergency contact numbers separately from your wallet.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Trust Your Instincts</h4>
+                    <p>If something feels wrong, leave immediately. Go to the nearest safe public place.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-shield-alt"></i>
+                <h2>Rakshak</h2>
+                <p>Women Safety Companion</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="awareness.html">Safety Tips</a>
+                <a href="sos.html">SOS</a>
+                <a href="resources.html">Resources</a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
+            <div class="copyright">
+                <p>Made with ❤️ by Sudhanshu Gupta</p>
+                <p class="copyright-text">© 2026 Rakshak. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/helpers.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // Pre-Journey Safety Check
+        document.getElementById('checkSafetyBtn').addEventListener('click', function() {
+            const timeOfDay = document.getElementById('timeOfDay').value;
+            const areaType = document.getElementById('areaType').value;
+            
+            if (!timeOfDay || !areaType) {
+                alert('Please select both time of day and area type.');
+                return;
+            }
+            
+            const checklist = generateSafetyChecklist(timeOfDay, areaType);
+            document.getElementById('safetyChecklist').innerHTML = checklist;
+            document.getElementById('checklistResults').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('checklistResults').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        function generateSafetyChecklist(time, area) {
+            let checklist = '';
+            
+            // Base checklist items
+            const baseItems = [
+                'Share your live location with a trusted contact',
+                'Ensure your phone is fully charged',
+                'Carry emergency cash separately',
+                'Save emergency contacts on speed dial'
+            ];
+            
+            // Time-specific items
+            if (time === 'night') {
+                baseItems.push('Carry a personal safety alarm or whistle');
+                baseItems.push('Wear reflective clothing if walking');
+                baseItems.push('Book verified transportation in advance');
+                baseItems.push('Avoid isolated routes and shortcuts');
+            } else if (time === 'evening') {
+                baseItems.push('Stay in well-lit areas');
+                baseItems.push('Keep someone updated on your arrival time');
+                baseItems.push('Have transportation arranged for return');
+            }
+            
+            // Area-specific items
+            if (area === 'unknown') {
+                baseItems.push('Research the area before visiting');
+                baseItems.push('Save local emergency numbers');
+                baseItems.push('Identify safe spots along your route (police stations, hospitals)');
+                baseItems.push('Use GPS navigation but remain aware of surroundings');
+            }
+            
+            // Generate checklist HTML
+            baseItems.forEach((item, index) => {
+                checklist += `
+                    <div class="checklist-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>${item}</span>
+                    </div>
+                `;
+            });
+            
+            // Add risk assessment
+            let riskLevel = 'Low';
+            let riskColor = 'green';
+            
+            if ((time === 'night' && area === 'unknown') || (time === 'night' && area === 'unknown')) {
+                riskLevel = 'High';
+                riskColor = 'red';
+            } else if (time === 'night' || area === 'unknown') {
+                riskLevel = 'Medium';
+                riskColor = 'orange';
+            }
+            
+            checklist = `
+                <div class="alert alert-${riskColor === 'red' ? 'danger' : riskColor === 'orange' ? 'warning' : 'success'}" style="margin-bottom: 1rem;">
+                    <i class="fas fa-${riskColor === 'red' ? 'exclamation-triangle' : riskColor === 'orange' ? 'exclamation-circle' : 'check-circle'}"></i>
+                    <div>
+                        <h4>Risk Assessment: ${riskLevel}</h4>
+                        <p>Based on your selections, we recommend taking extra precautions.</p>
+                    </div>
+                </div>
+                ${checklist}
+            `;
+            
+            return checklist;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Rakshak</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .login-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            border-color: #2ecc71;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .login-btn:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+        
+        .demo-btn {
+            width: 100%;
+            padding: 15px;
+            background: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .demo-btn:hover {
+            background: #d68910;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .alert-success {
+            background: #d5f4e6;
+            color: #27ae60;
+            border-left: 4px solid #2ecc71;
+        }
+        
+        .alert-error {
+            background: #fadbd8;
+            color: #c0392b;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .alert-info {
+            background: #d6eaf8;
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+        }
+        
+        .footer-links {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-links a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Rakshak Login</h1>
+            <p>Your safety companion</p>
+        </div>
+        
+        <div class="login-body">
+            <div id="authAlert" class="alert"></div>
+            
+            <div class="alert alert-info">
+                <strong>Demo Access:</strong> Use any email and password.
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            
+            <button class="demo-btn" id="demoBtn">
+                <i class="fas fa-user-check"></i> Use Demo Account
+            </button>
+            
+            <div class="footer-links">
+                <p>Made with ❤️ by Sudhanshu Gupta</p>
+                <a href="index.html">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Your Firebase Config - REPLACE WITH YOURS
+        const firebaseConfig = {
+            apiKey: "AIzaSyBc...YOUR_API_KEY",
+            authDomain: "rakshak-xxxxx.firebaseapp.com",
+            projectId: "rakshak-xxxxx",
+            storageBucket: "rakshak-xxxxx.appspot.com",
+            messagingSenderId: "1234567890",
+            appId: "1:1234567890:web:abcdef123456"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        
+        console.log("🔥 Firebase initialized");
+        
+        // Login function
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            showAlert('Logging in...', 'info');
+            
+            try {
+                // Try Firebase login
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                showAlert('✅ Login successful!', 'success');
+                
+                // Save to localStorage
+                localStorage.setItem('rakshak_user', JSON.stringify({
+                    email: user.email,
+                    uid: user.uid,
+                    timestamp: new Date().toISOString()
+                }));
+                
+                // Redirect
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Login error:', error.code, error.message);
+                
+                if (error.code === 'auth/user-not-found') {
+                    // Create demo account
+                    createDemoAccount(email);
+                } else {
+                    showAlert('❌ ' + error.message, 'error');
+                }
+            }
+        });
+        
+        // Demo button
+        document.getElementById('demoBtn').addEventListener('click', () => {
+            document.getElementById('email').value = 'demo@rakshak.com';
+            document.getElementById('password').value = '123456';
+            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+        });
+        
+        // Create demo account
+        function createDemoAccount(email) {
+            const demoUser = {
+                email: email,
+                uid: 'demo-' + Date.now(),
+                name: email.split('@')[0],
+                isDemo: true,
+                createdAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('rakshak_user', JSON.stringify(demoUser));
+            
+            showAlert('✅ Demo account created! Redirecting...', 'success');
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        }
+        
+        // Alert function
+        function showAlert(message, type) {
+            const alertDiv = document.getElementById('authAlert');
+            alertDiv.textContent = message;
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                alertDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Check if already logged in
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                showAlert('Already logged in. Redirecting...', 'info');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            }
+        });
+    </script>
+    
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>

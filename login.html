@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Rakshak</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles for login page */
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .login-header h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            border-color: #2ecc71;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .login-btn:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+        
+        .demo-btn {
+            width: 100%;
+            padding: 15px;
+            background: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .demo-btn:hover {
+            background: #d68910;
+        }
+        
+        .alert-box {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .alert-success {
+            background: #d5f4e6;
+            color: #27ae60;
+            border-left: 4px solid #2ecc71;
+        }
+        
+        .alert-error {
+            background: #fadbd8;
+            color: #c0392b;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .alert-info {
+            background: #d6eaf8;
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+        }
+        
+        .footer-links {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-links a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2ecc71;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <h2><i class="fas fa-shield-alt"></i> Rakshak</h2>
+                <p>Your Safety Companion</p>
+            </div>
+            
+            
+            <div class="login-body">
+                <div id="alertBox" class="alert-box"></div>
+                
+                <div class="alert-box alert-info" style="display: block;">
+                    <strong><i class="fas fa-info-circle"></i> Demo Access:</strong> 
+                    Use any email and password. If account doesn't exist, a demo account will be created.
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Enter password" required>
+                    </div>
+                    
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <input type="checkbox" id="remember">
+                            <label for="remember" style="display: inline; margin-left: 5px;">Remember me</label>
+                        </div>
+                        <a href="#" style="color: #3498db; font-size: 14px;">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="login-btn" id="submitBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+                
+                <button class="demo-btn" id="demoBtn">
+                    <i class="fas fa-user-check"></i> Use Demo Account
+                </button>
+                
+                <div class="footer-links">
+                    <p style="color: #7f8c8d; font-size: 14px;">Made with ❤️ by Sudhanshu Gupta</p>
+                    <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔥 FIREBASE SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // 🔥 FIREBASE CONFIGURATION
+        console.log("🚀 Initializing Firebase...");
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCn4WIijaIevYiXRu2GKcSBWS_qIy-ND0Q",
+            authDomain: "rakshak-a8b3c.firebaseapp.com",
+            projectId: "rakshak-a8b3c",
+            storageBucket: "rakshak-a8b3c.firebasestorage.app",
+            messagingSenderId: "592645878142",
+            appId: "1:592645878142:web:65dc6429d70d970906832f",
+            measurementId: "G-YKP8X71F10"
+        };
+        
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+            console.log("✅ Firebase initialized successfully!");
+        }
+        
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Check if already logged in
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                showAlert(`Already logged in as ${user.email}. Redirecting...`, 'info');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            }
+        });
+        
+        // Login Form Handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (!email || !password) {
+                showAlert('Please enter both email and password', 'error');
+                return;
+            }
+            
+            // Show loading
+            submitBtn.innerHTML = '<div class="loading"></div> Logging in...';
+            submitBtn.disabled = true;
+            
+            showAlert('Attempting login...', 'info');
+            
+            try {
+                // 🔥 FIREBASE LOGIN ATTEMPT
+                console.log("Attempting Firebase login for:", email);
+                
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                console.log("✅ Firebase Login Success:", user.email);
+                
+                // Save user data
+                localStorage.setItem('rakshak_user', JSON.stringify({
+                    email: user.email,
+                    uid: user.uid,
+                    name: user.displayName || email.split('@')[0],
+                    isFirebase: true,
+                    lastLogin: new Date().toISOString()
+                }));
+                
+                // Save to Firestore
+                try {
+                    await db.collection('users').doc(user.uid).set({
+                        email: user.email,
+                        lastLogin: new Date().toISOString(),
+                        loginCount: firebase.firestore.FieldValue.increment(1)
+                    }, { merge: true });
+                } catch (dbError) {
+                    console.log("Note: Could not save to Firestore, but login successful");
+                }
+                
+                showAlert(`✅ Login successful! Welcome ${user.email}`, 'success');
+                
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+                
+            } catch (error) {
+                console.error("🔥 Firebase Login Error:", error.code, error.message);
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+                submitBtn.disabled = false;
+                
+                // Handle specific errors
+                if (error.code === 'auth/user-not-found') {
+                    showAlert('No account found. Creating demo account...', 'info');
+                    createDemoAccount(email);
+                } 
+                else if (error.code === 'auth/wrong-password') {
+                    showAlert('Wrong password. Try "123456" or use demo account', 'error');
+                }
+                else if (error.code === 'auth/invalid-email') {
+                    showAlert('Invalid email format', 'error');
+                }
+                else if (error.code === 'auth/too-many-requests') {
+                    showAlert('Too many attempts. Try again later or use demo', 'error');
+                }
+                else {
+                    showAlert(`Error: ${error.message}. Using demo mode instead.`, 'error');
+                    createDemoAccount(email);
+                }
+            }
+        });
+        
+        // Demo Button
+        document.getElementById('demoBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('email').value = 'demo@rakshak.com';
+            document.getElementById('password').value = '123456';
+            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+        });
+        
+        // Create Demo Account (if Firebase fails)
+        function createDemoAccount(email) {
+            const demoUser = {
+                email: email,
+                uid: 'demo-' + Date.now(),
+                name: email.split('@')[0],
+                isDemo: true,
+                lastLogin: new Date().toISOString()
+            };
+            
+            localStorage.setItem('rakshak_user', JSON.stringify(demoUser));
+            
+            showAlert('✅ Demo account created! Redirecting...', 'success');
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        }
+        
+        // Alert Function
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.innerHTML = `
+                <i class="fas fa-${getIcon(type)}"></i>
+                <span>${message}</span>
+            `;
+            alertBox.className = `alert-box alert-${type}`;
+            alertBox.style.display = 'flex';
+            alertBox.style.alignItems = 'center';
+            alertBox.style.gap = '10px';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                alertBox.style.opacity = '0';
+                setTimeout(() => {
+                    if (alertBox.style.opacity === '0') {
+                        alertBox.style.display = 'none';
+                        alertBox.style.opacity = '1';
+                    }
+                }, 300);
+            }, 5000);
+        }
+        
+        function getIcon(type) {
+            switch(type) {
+                case 'success': return 'check-circle';
+                case 'error': return 'exclamation-triangle';
+                default: return 'info-circle';
+            }
+        }
+        
+        console.log("🎯 Login page ready. Firebase is initialized.");
+    </script>
+</body>
+</html>

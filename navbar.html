@@ -1,0 +1,63 @@
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <h1>Rakshak</h1>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="awareness.html">Safety Tips</a></li>
+            <li><a href="sos.html">SOS</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li id="authNavItem">
+                <!-- This will be dynamically updated -->
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<script>
+    // Update navbar based on login status
+    document.addEventListener('DOMContentLoaded', function() {
+        const userData = JSON.parse(localStorage.getItem('rakshak_user') || '{}');
+        const authNavItem = document.getElementById('authNavItem');
+        
+        if (userData.email) {
+            // User is logged in
+            authNavItem.innerHTML = `
+                <a href="dashboard.html" class="user-btn">
+                    <i class="fas fa-user"></i> ${userData.name || userData.email.split('@')[0]}
+                </a>
+            `;
+            
+            // Add logout option
+            const logoutItem = document.createElement('li');
+            logoutItem.innerHTML = `
+                <a href="#" class="logout-btn" id="navLogout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            `;
+            authNavItem.parentElement.appendChild(logoutItem);
+            
+            // Add logout handler
+            document.getElementById('navLogout').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Firebase logout if used
+                if (window.auth && userData.isFirebase) {
+                    auth.signOut();
+                }
+                
+                // Clear localStorage
+                localStorage.removeItem('rakshak_user');
+                
+                // Redirect to home
+                window.location.href = 'index.html';
+            });
+        }
+    });
+</script>
