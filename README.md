@@ -100,7 +100,7 @@ The application is fully responsive and works on:
 
 ## 📄 License
 
-© 2023 Rakshak. Created by Sudhanshu Gupta. All rights reserved.
+© 2026 Rakshak. Created by Sudhanshu Gupta. All rights reserved.
 
 ## 👨‍💻 Developer
 
